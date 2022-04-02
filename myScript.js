@@ -21,12 +21,10 @@ function operate(operation, x, y) {
     return operation(x, y);
 };
 
-function display(value) {
+function display(e) {
+    let buttonID = e.target.getAttribute('id');
+    let value = document.getElementById(buttonID).textContent;
     DISPLAY.textContent = value;
 }
 
-BUTTONS.forEach(button => button.addEventListener('click', function() {
-    const buttonID = button.getAttribute('id');
-    const value = document.getElementById(buttonID).textContent;
-    display(value);
-}));
+BUTTONS.forEach(button => button.addEventListener('click', display));
