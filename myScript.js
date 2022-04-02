@@ -26,6 +26,7 @@ function display(value) {
 }
 
 BUTTONS.forEach(button => button.addEventListener('click', function() {
-    value = button.getAttribute('id');
+    const buttonID = button.getAttribute('id');
+    const value = document.getElementById(buttonID).textContent;
     display(value);
 }));
