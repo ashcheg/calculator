@@ -43,9 +43,22 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
         firstNum = '';
         secondNum = '';
     } else if (buttonID==='add' || buttonID==='subtract' || buttonID==='divide' || buttonID==='multiply') {
-        //pressing operation sign
-        display(value);
         firstNum = Number(firstNum);
+        if (!(secondNum==='')) {
+            //calculate previous result and start new calculation
+            DISPLAY.textContent = '';
+            secondNum = Number(secondNum);
+            DISPLAY.textContent = operate(operationSign, firstNum, secondNum);
+            //update first number
+            firstNum = DISPLAY.textContent;
+            //display new operation
+            display(value);
+            //reset second number
+            secondNum = '';
+        } else {
+            display(value);
+        }
+        //save operation name
         operationSign = buttonID;
         //turn on calculation, waiting for second number
         mode = 1;
@@ -68,8 +81,6 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
 }));
 
 /* what to improve:
--- make it possible to do multiple operations without pressing equal sign
-(each pair evaluated at a time, not a whole expression);
 -- round numbers with log decimals;
 -- handle pressing '=' before entering all numbers or operator
 -- handle dividing by zero
