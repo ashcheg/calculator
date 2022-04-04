@@ -37,7 +37,9 @@ let firstNum = '';
 let secondNum = '';
 let operationSign = '';
 //mode tells us that calculation haven't began yet
-let mode = 0;
+let mode = false;
+//tracking when equal sign can perform opeartion
+let equalOn = false;
 
 BUTTONS.forEach(button => button.addEventListener('click', function() {
     let buttonID = button.getAttribute('id');
@@ -65,20 +67,25 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
         //save operation name
         operationSign = buttonID;
         //turn on calculation, waiting for second number
-        mode = 1;
+        mode = true;
+        equalOn = false;
     
     } else if (buttonID==='operate') {
-        //pressing equal sign
-        DISPLAY.textContent = '';
-        firstNum = Number(firstNum);
-        secondNum = Number(secondNum);
-        DISPLAY.textContent = roundNum(operate(operationSign, firstNum, secondNum));
-        mode = 0;
+        if (equalOn) {
+            //pressing equal sign
+            DISPLAY.textContent = '';
+            firstNum = Number(firstNum);
+            secondNum = Number(secondNum);
+            DISPLAY.textContent = roundNum(operate(operationSign, firstNum, secondNum));
+            mode = false;
+            equalOn = false;
+        }
     } else { 
         //pressing a number
         display(value);
-        if (mode === 1) {
+        if (mode) {
             secondNum += value;
+            equalOn = true;
         } else {
             firstNum += value;
         }
@@ -86,6 +93,5 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
 }));
 
 /* what to improve:
--- handle pressing '=' before entering all numbers or operator
 -- handle dividing by zero
 */
