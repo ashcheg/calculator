@@ -103,6 +103,9 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
 
 /* 
 what to improve:
+-- add '.' button for users to input decimals
+-- add 'backspace' button
+-- add keyboard support
 -- better css style for display text with error messages
 -- maybe write a reset function for properties of firstNum, secondNum, mode, equalOn ...
 */
