@@ -76,11 +76,20 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
             DISPLAY.textContent = '';
             firstNum = Number(firstNum);
             secondNum = Number(secondNum);
-            DISPLAY.textContent = roundNum(operate(operationSign, firstNum, secondNum));
+            if (secondNum===0) {
+                DISPLAY.textContent = 'division by zero';
+                firstNum = '';
+                secondNum = '';
+            } else {
+                DISPLAY.textContent = roundNum(operate(operationSign, firstNum, secondNum));
+            }
             mode = false;
             equalOn = false;
         }
     } else { 
+        if (DISPLAY.textContent === 'division by zero') {
+            DISPLAY.textContent = '';
+        }
         //pressing a number
         display(value);
         if (mode) {
@@ -92,6 +101,8 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
     }
 }));
 
-/* what to improve:
--- handle dividing by zero
+/* 
+what to improve:
+-- better css style for display text with error messages
+-- maybe write a reset function for properties of firstNum, secondNum, mode, equalOn ...
 */
