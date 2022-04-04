@@ -28,6 +28,10 @@ function display(value) {
     DISPLAY.textContent += value;
 }
 
+function roundNum(num) {
+    return Number(Math.round(num+'e'+2)+'e-'+2);
+}
+
 //storing values for later evaluation
 let firstNum = '';
 let secondNum = '';
@@ -48,7 +52,7 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
             //calculate previous result and start new calculation
             DISPLAY.textContent = '';
             secondNum = Number(secondNum);
-            DISPLAY.textContent = operate(operationSign, firstNum, secondNum);
+            DISPLAY.textContent = roundNum(operate(operationSign, firstNum, secondNum));
             //update first number
             firstNum = DISPLAY.textContent;
             //display new operation
@@ -66,8 +70,9 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
     } else if (buttonID==='operate') {
         //pressing equal sign
         DISPLAY.textContent = '';
+        firstNum = Number(firstNum);
         secondNum = Number(secondNum);
-        DISPLAY.textContent = operate(operationSign, firstNum, secondNum);
+        DISPLAY.textContent = roundNum(operate(operationSign, firstNum, secondNum));
         mode = 0;
     } else { 
         //pressing a number
@@ -81,7 +86,6 @@ BUTTONS.forEach(button => button.addEventListener('click', function() {
 }));
 
 /* what to improve:
--- round numbers with log decimals;
 -- handle pressing '=' before entering all numbers or operator
 -- handle dividing by zero
 */
